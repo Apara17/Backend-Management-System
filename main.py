@@ -10,7 +10,7 @@ from passlib.context import CryptContext
 from bson import ObjectId
 
 
-# ==================== CONFIGURATION ====================
+#  CONFIGURATION 
 class AppConfig:
     """Centralized application configuration"""
     MONGO_URI: str = os.getenv("MONGO_URI", "mongodb://localhost:27017")
@@ -26,7 +26,7 @@ class AppConfig:
 config = AppConfig()
 
 
-# ==================== DATABASE CONNECTION ====================
+#  DATABASE CONNECTION 
 class DatabaseManager:
     """Manages MongoDB connections and database access"""
     
@@ -47,7 +47,7 @@ db_manager = DatabaseManager(config.MONGO_URI, config.PRIMARY_DB)
 primary_db = db_manager.get_database()
 
 
-# ==================== PYDANTIC MODELS ====================
+#  PYDANTIC MODELS 
 class AdminRegistrationPayload(BaseModel):
     """Schema for admin registration during organization creation"""
     organization_name: str = Field(..., min_length=config.ORG_NAME_MIN, max_length=config.ORG_NAME_MAX)
@@ -85,7 +85,7 @@ class OrganizationMetadata(BaseModel):
         from_attributes = True
 
 
-# ==================== SECURITY & HASHING ====================
+#  SECURITY & HASHING 
 class PasswordHandler:
     """Handles password hashing and verification using bcrypt"""
     
@@ -132,7 +132,7 @@ pwd_handler = PasswordHandler()
 token_mgr = TokenManager(config.SECRET_KEY, config.ALGORITHM, config.TOKEN_LIFETIME)
 
 
-# ==================== UTILITY FUNCTIONS ====================
+#  UTILITY FUNCTIONS 
 def normalize_org_identifier(org_name: str) -> str:
     """
     Convert organization name to a valid identifier (slug).
@@ -158,7 +158,7 @@ def generate_tenant_collection_name(identifier: str) -> str:
     return f"tenant_{identifier.replace('-', '_')}"
 
 
-# ==================== SERVICE LAYER ====================
+#  SERVICE LAYER 
 class AdminRepository:
     """Data access layer for admin users"""
     
@@ -482,7 +482,7 @@ auth_service = AuthenticationService(admin_repo, org_repo)
 org_service = OrganizationService(admin_repo, org_repo, tenant_store)
 
 
-# ==================== DEPENDENCY INJECTION ====================
+#  DEPENDENCY INJECTION 
 async def extract_admin_context(authorization: str = Header(None)) -> Dict[str, Any]:
     """
     Extract and validate admin context from Authorization header.
@@ -508,7 +508,7 @@ async def extract_admin_context(authorization: str = Header(None)) -> Dict[str, 
         )
 
 
-# ==================== FASTAPI APPLICATION ====================
+# FASTAPI APPLICATION
 app = FastAPI(
     title="Enterprise Organization Management API",
     description="Multi-tenant organization management service with JWT authentication",
@@ -522,7 +522,7 @@ async def shutdown_event():
     await db_manager.close()
 
 
-# ==================== API ENDPOINTS ====================
+#  API ENDPOINTS 
 
 @app.post("/org/create", response_model=OrganizationMetadata)
 async def create_organization(payload: AdminRegistrationPayload):
@@ -604,7 +604,7 @@ async def login_admin(payload: AdminAuthPayload):
     )
 
 
-# ==================== HEALTH CHECK ====================
+# HEALTH CHECK 
 @app.get("/health")
 async def health_check():
     """Simple health check endpoint"""
