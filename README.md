@@ -2,7 +2,7 @@
 
 A robust, production-ready backend service for managing multi-tenant organizations with JWT-based authentication and dynamic database schema management.
 
-## 📋 Overview
+##  Overview
 
 This API provides a comprehensive solution for:
 - **Organization Creation & Management**: Register, retrieve, update, and delete organizations
@@ -11,7 +11,7 @@ This API provides a comprehensive solution for:
 - **Security**: Bcrypt password hashing, secure token management, role-based authorization
 - **Data Isolation**: Complete data separation between organizations in MongoDB
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 ┌─────────────────────────────────────────────────┐
@@ -74,7 +74,7 @@ This API provides a comprehensive solution for:
 - **Validation**: Pydantic
 - **Server**: Uvicorn (ASGI server)
 
-## 📦 Installation
+##  Installation
 
 ### Prerequisites
 - Python 3.8+
@@ -124,7 +124,7 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 - Interactive API docs: http://localhost:8000/docs
 - Alternative docs: http://localhost:8000/redoc
 
-## 🔑 Environment Configuration
+##  Environment Configuration
 
 Create a `.env` file in the project root:
 
@@ -142,7 +142,7 @@ TOKEN_LIFETIME=60
 LOG_LEVEL=INFO
 ```
 
-## 📚 API Endpoints
+##  API Endpoints
 
 ### 1. Create Organization
 **POST** `/org/create`
@@ -316,7 +316,7 @@ Simple health check endpoint to verify API is running.
 }
 ```
 
-## 🔐 Authentication Flow
+##  Authentication Flow
 
 ### JWT Token Structure
 
@@ -389,7 +389,7 @@ curl -X PUT "http://localhost:8000/org/update" \
 }
 ```
 
-## 🏛️ Design Choices & Architecture Decisions
+##  Design Choices & Architecture Decisions
 
 ### 1. **Multi-Tenant Isolation via Collections**
 - **Decision**: Separate MongoDB collections per tenant instead of single collection with tenant_id
@@ -440,7 +440,7 @@ curl -X PUT "http://localhost:8000/org/update" \
   - Clear relationship to organization
 - **Alternative**: Could use org_id as collection name (less readable)
 
-## 🧪 Testing the API
+##  Testing the API
 
 ### Using cURL
 
@@ -519,13 +519,13 @@ response = requests.put(f"{BASE_URL}/org/update",
 print(response.json())
 ```
 
-## 📈 Scalability Considerations
+##  Scalability Considerations
 
 ### Current Implementation
-- ✅ Async/await pattern supports high concurrency
-- ✅ MongoDB collections per tenant enable parallel queries
-- ✅ Stateless design allows horizontal scaling
-- ✅ JWT eliminates session storage
+-  Async/await pattern supports high concurrency
+-  MongoDB collections per tenant enable parallel queries
+-  Stateless design allows horizontal scaling
+-  JWT eliminates session storage
 
 ### Future Improvements
 - Add connection pooling configuration
@@ -535,7 +535,7 @@ print(response.json())
 - Add comprehensive logging and monitoring
 - Database replication for high availability
 
-## 🔐 Security Features
+##  Security Features
 
 - **Password Hashing**: Bcrypt with salt
 - **JWT Tokens**: Time-limited access tokens
@@ -544,7 +544,7 @@ print(response.json())
 - **HTTPS**: Configure in production deployment
 - **Environment Secrets**: Use .env for sensitive data
 
-## 📝 Project Structure
+##  Project Structure
 
 ```
 org-management-backend/
@@ -557,7 +557,7 @@ org-management-backend/
     └── workflows/         # CI/CD configurations
 ```
 
-## 🐛 Error Handling
+##  Error Handling
 
 The API returns appropriate HTTP status codes:
 - `200 OK`: Successful GET, PUT requests
@@ -571,18 +571,18 @@ The API returns appropriate HTTP status codes:
 
 All errors include descriptive messages.
 
-## 📞 Support & Contribution
+##  Support & Contribution
 
 For issues, feature requests, or contributions:
 1. Open an issue on GitHub
 2. Create a feature branch
 3. Submit a pull request
 
-## 📄 License
+##  License
 
 MIT License - feel free to use this project for learning and commercial purposes.
 
-## 👨‍💻 Development Info
+##  Development Info
 
 - **Author**: Your Name
 - **Created**: December 2025
@@ -590,19 +590,17 @@ MIT License - feel free to use this project for learning and commercial purposes
 - **Python Version**: 3.8+
 - **Status**: Production Ready
 
-## 🎯 Key Features Implemented
+##  Key Features Implemented
 
-✅ Multi-tenant organization management
-✅ Dynamic MongoDB collection creation
-✅ Admin authentication with JWT
-✅ Secure password hashing (Bcrypt)
-✅ Data migration on organization rename
-✅ Role-based authorization
-✅ Async/await non-blocking operations
-✅ Comprehensive error handling
-✅ API documentation with Swagger UI
-✅ Clean, modular architecture
+ Multi-tenant organization management
+ Dynamic MongoDB collection creation
+ Admin authentication with JWT
+ Secure password hashing (Bcrypt)
+ Data migration on organization rename
+ Role-based authorization
+ Async/await non-blocking operations
+ Comprehensive error handling
+ API documentation with Swagger UI
+ Clean, modular architecture
 
----
 
-**Ready to deploy? Check out the deployment guides for Docker, Heroku, AWS, or DigitalOcean!**
