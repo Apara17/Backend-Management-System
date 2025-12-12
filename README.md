@@ -350,7 +350,7 @@ curl -X PUT "http://localhost:8000/org/update" \
   }'
 ```
 
-## 📊 Data Model
+##  Data Model
 
 ### Organizations Collection
 ```javascript
